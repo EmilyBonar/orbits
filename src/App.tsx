@@ -25,11 +25,12 @@ function App() {
 							size={size}
 							direction={orbit.direction}
 							period={orbit.period}
+							index={index}
 						/>
 					))}
 				</div>
 			</div>
-			<div className="flex justify-center h-full gap-4 bg-white w-96">
+			<div className="flex flex-col items-center h-full gap-4 overflow-scroll bg-white w-96">
 				{orbits.map((orbit, index) => (
 					<OrbitController
 						key={index}
@@ -45,6 +46,11 @@ function App() {
 						}}
 					/>
 				))}
+				<AddButton
+					addOrbiter={() => {
+						setOrbits([...orbits, new DefaultOrbit()]);
+					}}
+				/>
 			</div>
 		</div>
 	);
@@ -62,6 +68,7 @@ function Orbiter(props: {
 	size: number;
 	direction: "clockwise" | "counter-clockwise";
 	period: number;
+	index: number;
 }) {
 	const colors = [
 		"bg-gray-600",
@@ -78,7 +85,7 @@ function Orbiter(props: {
 		<div
 			className="relative w-full h-full col-span-1 row-span-1"
 			style={{
-				top: `-${props.size}px`,
+				top: `-${props.size * (props.index + 1)}px`,
 				animation: `${props.direction} ${props.period}s linear infinite`,
 			}}
 		>
@@ -130,4 +137,8 @@ function OrbitController(props: {
 			</fieldset>
 		</div>
 	);
+}
+
+function AddButton(props: { addOrbiter: Function }) {
+	return <button onClick={() => props.addOrbiter()}>Add Orbiter</button>;
 }
