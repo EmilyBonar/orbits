@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import clockwiseIcon from "./clockwise.svg";
 import counterclockwiseIcon from "./counter-clockwise.svg";
@@ -106,19 +106,13 @@ function OrbitController(props: {
 	index: number;
 }) {
 	return (
-		<div className="p-4">
-			<input
-				type="range"
-				id="frequency"
-				min={0.1}
-				max={2}
-				step={0.1}
-				onChange={(e) => props.changeFrequency(e.target.value)}
-				defaultValue={0.5}
-			></input>
-			<label htmlFor="frequency">frequency</label>
+		<div className="flex flex-col items-center p-4">
+			<FrequencySlider
+				index={props.index}
+				changeFrequency={props.changeFrequency}
+			/>
 			<fieldset
-				className="flex flex-row"
+				className="flex flex-row gap-4"
 				onChange={(e) =>
 					props.changeDirection((e.target as HTMLInputElement).value)
 				}
@@ -127,6 +121,27 @@ function OrbitController(props: {
 				<RadioButton direction="clockwise" index={props.index} />
 				<RadioButton direction="counter-clockwise" index={props.index} />
 			</fieldset>
+		</div>
+	);
+}
+
+function FrequencySlider(props: { index: number; changeFrequency: Function }) {
+	const [freq, setFreq] = useState(0.5);
+	useEffect(() => props.changeFrequency(freq), [freq]);
+	return (
+		<div>
+			<input
+				type="range"
+				id="frequency"
+				min={0.1}
+				max={2}
+				step={0.1}
+				onChange={(e) => setFreq(e.target.valueAsNumber)}
+				defaultValue={0.5}
+			></input>
+			<label htmlFor="frequency" className="">
+				{freq}
+			</label>
 		</div>
 	);
 }
