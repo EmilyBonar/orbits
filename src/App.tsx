@@ -14,11 +14,11 @@ class DefaultOrbit implements OrbitDetails {
 }
 
 function App() {
-	const size = 500;
+	const size = 350;
 	const [orbits, setOrbits] = useState<OrbitDetails[]>([new DefaultOrbit()]);
 	return (
-		<div className="flex flex-row w-screen h-screen overflow-hidden bg-indigo-900">
-			<div className="grid flex-1 place-items-center">
+		<div className="flex flex-col w-screen h-screen overflow-hidden bg-indigo-900 sm:flex-row">
+			<div className="grid flex-1 px-0 py-2 place-items-center sm:py-0 sm:px-2">
 				<div className="" style={{ width: size, height: size }}>
 					<Path />
 					{orbits.map((orbit, index) => (
@@ -32,7 +32,7 @@ function App() {
 					))}
 				</div>
 			</div>
-			<div className="flex flex-col items-center h-full gap-4 overflow-scroll bg-white divide-y w-96">
+			<div className="flex flex-col items-center h-full gap-4 overflow-scroll bg-white divide-y">
 				{orbits.map((orbit, index) => (
 					<OrbitController
 						key={index}
