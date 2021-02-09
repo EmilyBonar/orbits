@@ -124,26 +124,36 @@ function OrbitController(props: {
 				}
 			>
 				<legend>Choose direction</legend>
-				<input
-					type="radio"
-					id={`direction-clockwise-${props.index}`}
-					name={`direction-${props.index}`}
-					value="clockwise"
-					defaultChecked
-				></input>
-				<label htmlFor={`direction-clockwise-${props.index}`}>
-					<img className="w-12" src={clockwiseIcon}></img>
-				</label>
-				<input
-					type="radio"
-					id={`direction-counter-clockwise-${props.index}`}
-					name={`direction-${props.index}`}
-					value="counter-clockwise"
-				></input>
-				<label htmlFor={`direction-counter-clockwise-${props.index}`}>
-					<img className="w-12" src={counterclockwiseIcon}></img>
-				</label>
+				<RadioButton direction="clockwise" index={props.index} />
+				<RadioButton direction="counter-clockwise" index={props.index} />
 			</fieldset>
+		</div>
+	);
+}
+
+function RadioButton(props: {
+	direction: "clockwise" | "counter-clockwise";
+	index: number;
+}) {
+	return (
+		<div>
+			<input
+				type="radio"
+				id={`direction-${props.direction}-${props.index}`}
+				name={`direction-${props.index}`}
+				value={props.direction}
+				defaultChecked={props.direction == "clockwise"}
+			></input>
+			<label htmlFor={`direction-${props.direction}-${props.index}`}>
+				<img
+					className="w-12"
+					src={
+						props.direction == "clockwise"
+							? clockwiseIcon
+							: counterclockwiseIcon
+					}
+				></img>
+			</label>
 		</div>
 	);
 }
