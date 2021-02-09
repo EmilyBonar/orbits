@@ -27,8 +27,11 @@ function Path() {
 function Orbiter() {
 	return (
 		<div
-			className="relative w-full h-full col-span-1 row-span-1 transform animate-spin"
-			style={{ top: "-200px" }}
+			className="relative w-full h-full col-span-1 row-span-1"
+			style={{
+				top: "-200px",
+				animation: "orbit 2s linear infinite",
+			}}
 		>
 			<div
 				className="relative w-8 h-8 origin-center bg-black rounded-full top-1"
