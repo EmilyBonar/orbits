@@ -1,17 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
+
+interface OrbitDetails {
+	period: number;
+	direction: "clockwise" | "counter-clockwise";
+}
+
+class DefaultOrbit implements OrbitDetails {
+	period = 1;
+	direction: "clockwise" | "counter-clockwise" = "clockwise";
+}
 
 function App() {
 	const size = 400;
+	const [orbits, setOrbits] = useState<OrbitDetails[]>([new DefaultOrbit()]);
+	console.log(orbits);
 	return (
 		<div className="flex flex-row w-screen h-screen bg-indigo-900">
 			<div className="grid flex-1 place-items-center">
 				<div className="" style={{ width: size, height: size }}>
 					<Path />
-					<Orbiter size={size} direction="orbit" period={2} />
+					{orbits.map((orbit, index) => (
+						<Orbiter
+							key={index}
+							size={size}
+							direction={orbit.direction}
+							period={orbit.period}
+						/>
+					))}
 				</div>
 			</div>
-			<div className="h-full bg-white w-96"></div>
+			<div className="h-full bg-white w-96">
+				{orbits.map((orbit, index) => (
+					<OrbitController
+						key={index}
+						changeFrequency={(frequency: number) => {
+							let localOrbits = orbits;
+							localOrbits[index].period = 1 / frequency;
+							setOrbits(localOrbits);
+						}}
+						changeDirection={(direction: "clockwise" | "counter-clockwise") => {
+							let localOrbits = orbits;
+							localOrbits[index].direction = direction;
+							setOrbits(localOrbits);
+						}}
+					/>
+				))}
+			</div>
 		</div>
 	);
 }
@@ -26,7 +61,7 @@ function Path() {
 
 function Orbiter(props: {
 	size: number;
-	direction: "orbit" | "reverse-orbit";
+	direction: "clockwise" | "counter-clockwise";
 	period: number;
 }) {
 	const colors = [
@@ -52,6 +87,48 @@ function Orbiter(props: {
 				className={`relative w-8 h-8 origin-center ${color} rounded-full top-1`}
 				style={{ left: `${props.size / 2 - 32 / 2}px` }}
 			></div>
+		</div>
+	);
+}
+
+function OrbitController(props: {
+	changeFrequency: Function;
+	changeDirection: Function;
+}) {
+	return (
+		<div>
+			<input
+				type="range"
+				id="frequency"
+				min={0.1}
+				max={5}
+				step={0.1}
+				onChange={(e) => props.changeFrequency(e.target.value)}
+				defaultValue={1}
+			></input>
+			<label htmlFor="frequency">frequency</label>
+			<fieldset
+				onChange={(e) =>
+					props.changeDirection((e.target as HTMLInputElement).value)
+				}
+			>
+				<legend>Choose direction</legend>
+				<input
+					type="radio"
+					id="direction-clockwise"
+					name="direction"
+					value="clockwise"
+					defaultChecked
+				></input>
+				<label htmlFor="direction-clockwise">clockwise</label>
+				<input
+					type="radio"
+					id="direction-counter-clockwise"
+					name="direction"
+					value="counter-clockwise"
+				></input>
+				<label htmlFor="direction-counter-clockwise">counter-clockwise</label>
+			</fieldset>
 		</div>
 	);
 }
