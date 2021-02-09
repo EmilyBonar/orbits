@@ -8,3 +8,15 @@
 		transform: rotate(1turn);
 	}
 }
+
+@-webkit-keyframes reverse-orbit {
+	100% {
+		transform: rotate(-1turn);
+	}
+}
+
+@keyframes reverse-orbit {
+	100% {
+		transform: rotate(-1turn);
+	}
+}
