@@ -8,7 +8,7 @@ function App() {
 			<div className="grid flex-1 place-items-center">
 				<div className="" style={{ width: size, height: size }}>
 					<Path />
-					<Orbiter size={size} />
+					<Orbiter size={size} direction="orbit" period={2} />
 				</div>
 			</div>
 			<div className="h-full bg-white w-96"></div>
@@ -24,17 +24,32 @@ function Path() {
 	);
 }
 
-function Orbiter(props: { size: number }) {
+function Orbiter(props: {
+	size: number;
+	direction: "orbit" | "reverse-orbit";
+	period: number;
+}) {
+	const colors = [
+		"bg-gray-600",
+		"bg-red-600",
+		"bg-yellow-600",
+		"bg-green-600",
+		"bg-blue-600",
+		"bg-indigo-600",
+		"bg-purple-600",
+		"bg-pink-600",
+	];
+	let color = colors[Math.floor(Math.random() * colors.length)];
 	return (
 		<div
 			className="relative w-full h-full col-span-1 row-span-1"
 			style={{
 				top: `-${props.size}px`,
-				animation: "reverse-orbit 2s linear infinite",
+				animation: `${props.direction} ${props.period}s linear infinite`,
 			}}
 		>
 			<div
-				className="relative w-8 h-8 origin-center bg-black rounded-full top-1"
+				className={`relative w-8 h-8 origin-center ${color} rounded-full top-1`}
 				style={{ left: `${props.size / 2 - 32 / 2}px` }}
 			></div>
 		</div>
