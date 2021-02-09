@@ -44,6 +44,7 @@ function App() {
 							localOrbits[index].direction = direction;
 							setOrbits([...localOrbits]);
 						}}
+						index={index}
 					/>
 				))}
 				<AddButton
@@ -100,6 +101,7 @@ function Orbiter(props: {
 function OrbitController(props: {
 	changeFrequency: Function;
 	changeDirection: Function;
+	index: number;
 }) {
 	return (
 		<div className="p-4">
@@ -121,19 +123,21 @@ function OrbitController(props: {
 				<legend>Choose direction</legend>
 				<input
 					type="radio"
-					id="direction-clockwise"
-					name="direction"
+					id={`direction-clockwise-${props.index}`}
+					name={`direction-${props.index}`}
 					value="clockwise"
 					defaultChecked
 				></input>
-				<label htmlFor="direction-clockwise">clockwise</label>
+				<label htmlFor={`direction-clockwise-${props.index}`}>clockwise</label>
 				<input
 					type="radio"
-					id="direction-counter-clockwise"
-					name="direction"
+					id={`direction-counter-clockwise-${props.index}`}
+					name={`direction-${props.index}`}
 					value="counter-clockwise"
 				></input>
-				<label htmlFor="direction-counter-clockwise">counter-clockwise</label>
+				<label htmlFor={`direction-counter-clockwise-${props.index}`}>
+					counter-clockwise
+				</label>
 			</fieldset>
 		</div>
 	);
