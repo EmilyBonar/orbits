@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
+import clockwiseIcon from "./clockwise.svg";
+import counterclockwiseIcon from "./counter-clockwise.svg";
 
 interface OrbitDetails {
 	period: number;
@@ -116,6 +118,7 @@ function OrbitController(props: {
 			></input>
 			<label htmlFor="frequency">frequency</label>
 			<fieldset
+				className="flex flex-row"
 				onChange={(e) =>
 					props.changeDirection((e.target as HTMLInputElement).value)
 				}
@@ -128,7 +131,9 @@ function OrbitController(props: {
 					value="clockwise"
 					defaultChecked
 				></input>
-				<label htmlFor={`direction-clockwise-${props.index}`}>clockwise</label>
+				<label htmlFor={`direction-clockwise-${props.index}`}>
+					<img className="w-12" src={clockwiseIcon}></img>
+				</label>
 				<input
 					type="radio"
 					id={`direction-counter-clockwise-${props.index}`}
@@ -136,7 +141,7 @@ function OrbitController(props: {
 					value="counter-clockwise"
 				></input>
 				<label htmlFor={`direction-counter-clockwise-${props.index}`}>
-					counter-clockwise
+					<img className="w-12" src={counterclockwiseIcon}></img>
 				</label>
 			</fieldset>
 		</div>
