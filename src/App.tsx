@@ -7,16 +7,15 @@ interface OrbitDetails {
 }
 
 class DefaultOrbit implements OrbitDetails {
-	period = 1;
+	period = 2;
 	direction: "clockwise" | "counter-clockwise" = "clockwise";
 }
 
 function App() {
-	const size = 400;
+	const size = 500;
 	const [orbits, setOrbits] = useState<OrbitDetails[]>([new DefaultOrbit()]);
-	console.log(orbits);
 	return (
-		<div className="flex flex-row w-screen h-screen bg-indigo-900">
+		<div className="flex flex-row w-screen h-screen overflow-hidden bg-indigo-900">
 			<div className="grid flex-1 place-items-center">
 				<div className="" style={{ width: size, height: size }}>
 					<Path />
@@ -30,19 +29,19 @@ function App() {
 					))}
 				</div>
 			</div>
-			<div className="h-full bg-white w-96">
+			<div className="flex justify-center h-full gap-4 bg-white w-96">
 				{orbits.map((orbit, index) => (
 					<OrbitController
 						key={index}
 						changeFrequency={(frequency: number) => {
 							let localOrbits = orbits;
 							localOrbits[index].period = 1 / frequency;
-							setOrbits(localOrbits);
+							setOrbits([...localOrbits]);
 						}}
 						changeDirection={(direction: "clockwise" | "counter-clockwise") => {
 							let localOrbits = orbits;
 							localOrbits[index].direction = direction;
-							setOrbits(localOrbits);
+							setOrbits([...localOrbits]);
 						}}
 					/>
 				))}
@@ -96,15 +95,15 @@ function OrbitController(props: {
 	changeDirection: Function;
 }) {
 	return (
-		<div>
+		<div className="p-4">
 			<input
 				type="range"
 				id="frequency"
 				min={0.1}
-				max={5}
+				max={2}
 				step={0.1}
 				onChange={(e) => props.changeFrequency(e.target.value)}
-				defaultValue={1}
+				defaultValue={0.5}
 			></input>
 			<label htmlFor="frequency">frequency</label>
 			<fieldset
