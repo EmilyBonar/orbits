@@ -2,10 +2,14 @@ import React from "react";
 import "./App.css";
 
 function App() {
+	const size = "200px";
 	return (
 		<div className="flex flex-row w-screen h-screen bg-indigo-900">
 			<div className="grid flex-1 place-items-center">
-				<Path />
+				<div className="" style={{ width: size, height: size }}>
+					<Path />
+					<Orbiter />
+				</div>
 			</div>
 			<div className="h-full bg-white w-96"></div>
 		</div>
@@ -15,11 +19,21 @@ function App() {
 export default App;
 
 function Path() {
-	const size = "700px";
+	return (
+		<div className="w-full h-full col-span-1 row-span-1 border-white rounded-full border-40"></div>
+	);
+}
+
+function Orbiter() {
 	return (
 		<div
-			className="max-h-full border-white rounded-full border-40"
-			style={{ width: size, height: size }}
-		></div>
+			className="relative w-full h-full col-span-1 row-span-1 transform animate-spin"
+			style={{ top: "-200px" }}
+		>
+			<div
+				className="relative w-8 h-8 origin-center bg-black rounded-full top-1"
+				style={{ left: "83px" }}
+			></div>
+		</div>
 	);
 }
