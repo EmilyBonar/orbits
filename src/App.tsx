@@ -32,7 +32,7 @@ function App() {
 					))}
 				</div>
 			</div>
-			<div className="flex flex-col items-center h-full gap-4 overflow-scroll bg-white w-96">
+			<div className="flex flex-col items-center h-full gap-4 overflow-scroll bg-white divide-y w-96">
 				{orbits.map((orbit, index) => (
 					<OrbitController
 						key={index}
@@ -74,7 +74,6 @@ function Orbiter(props: {
 	index: number;
 }) {
 	const colors = [
-		"bg-gray-600",
 		"bg-red-600",
 		"bg-yellow-600",
 		"bg-green-600",
@@ -82,8 +81,9 @@ function Orbiter(props: {
 		"bg-indigo-600",
 		"bg-purple-600",
 		"bg-pink-600",
+		"bg-gray-600",
 	];
-	let color = colors[Math.floor(Math.random() * colors.length)];
+	let color = colors[props.index % colors.length];
 	return (
 		<div
 			className="relative w-full h-full col-span-1 row-span-1"
@@ -106,7 +106,7 @@ function OrbitController(props: {
 	index: number;
 }) {
 	return (
-		<div className="flex flex-col items-center p-4">
+		<div className="flex flex-col items-center p-2">
 			<FrequencySlider
 				index={props.index}
 				changeFrequency={props.changeFrequency}
@@ -129,7 +129,11 @@ function FrequencySlider(props: { index: number; changeFrequency: Function }) {
 	const [freq, setFreq] = useState(0.5);
 	useEffect(() => props.changeFrequency(freq), [freq]);
 	return (
-		<div>
+		<div className="flex flex-col m-2 text-center">
+			<label htmlFor="frequency">
+				<span className="text-2xl">{freq} </span>
+				<span className="text-gray-600">rotations/sec</span>
+			</label>
 			<input
 				type="range"
 				id="frequency"
@@ -139,9 +143,6 @@ function FrequencySlider(props: { index: number; changeFrequency: Function }) {
 				onChange={(e) => setFreq(e.target.valueAsNumber)}
 				defaultValue={0.5}
 			></input>
-			<label htmlFor="frequency" className="">
-				{freq}
-			</label>
 		</div>
 	);
 }
@@ -174,5 +175,12 @@ function RadioButton(props: {
 }
 
 function AddButton(props: { addOrbiter: Function }) {
-	return <button onClick={() => props.addOrbiter()}>Add Orbiter</button>;
+	return (
+		<button
+			onClick={() => props.addOrbiter()}
+			className="p-3 text-gray-900 bg-blue-100 rounded"
+		>
+			Add Orbiter
+		</button>
+	);
 }
