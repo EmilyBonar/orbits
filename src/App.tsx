@@ -16,6 +16,26 @@ class DefaultOrbit implements OrbitDetails {
 function App() {
 	const size = 350;
 	const [orbits, setOrbits] = useState<OrbitDetails[]>([new DefaultOrbit()]);
+	const orbitColors = [
+		"bg-red-600",
+		"bg-yellow-600",
+		"bg-green-600",
+		"bg-blue-600",
+		"bg-indigo-600",
+		"bg-purple-600",
+		"bg-pink-600",
+		"bg-gray-600",
+	];
+	const controlColors = [
+		"bg-red-300",
+		"bg-yellow-300",
+		"bg-green-300",
+		"bg-blue-300",
+		"bg-indigo-300",
+		"bg-purple-300",
+		"bg-pink-300",
+		"bg-gray-300",
+	];
 	return (
 		<div className="flex flex-col w-screen h-screen overflow-hidden bg-indigo-900 sm:flex-row">
 			<div className="grid flex-1 px-0 py-2 place-items-center sm:py-0 sm:px-2">
@@ -28,6 +48,7 @@ function App() {
 							direction={orbit.direction}
 							period={orbit.period}
 							index={index}
+							color={orbitColors[index % orbitColors.length]}
 						/>
 					))}
 				</div>
@@ -47,6 +68,7 @@ function App() {
 							setOrbits([...localOrbits]);
 						}}
 						index={index}
+						color={controlColors[index % controlColors.length]}
 					/>
 				))}
 				<AddButton
@@ -72,18 +94,9 @@ function Orbiter(props: {
 	direction: "clockwise" | "counter-clockwise";
 	period: number;
 	index: number;
+	color: string;
 }) {
-	const colors = [
-		"bg-red-600",
-		"bg-yellow-600",
-		"bg-green-600",
-		"bg-blue-600",
-		"bg-indigo-600",
-		"bg-purple-600",
-		"bg-pink-600",
-		"bg-gray-600",
-	];
-	let color = colors[props.index % colors.length];
+	//let color = colors[props.index % colors.length];
 	return (
 		<div
 			className="relative w-full h-full col-span-1 row-span-1"
@@ -93,7 +106,7 @@ function Orbiter(props: {
 			}}
 		>
 			<div
-				className={`relative w-8 h-8 origin-center ${color} rounded-full top-1`}
+				className={`relative w-8 h-8 origin-center ${props.color} rounded-full top-1`}
 				style={{ left: `${props.size / 2 - 32 / 2}px` }}
 			></div>
 		</div>
@@ -104,9 +117,10 @@ function OrbitController(props: {
 	changeFrequency: Function;
 	changeDirection: Function;
 	index: number;
+	color: string;
 }) {
 	return (
-		<div className="flex flex-col items-center p-2">
+		<div className={`flex flex-col items-center p-2 ${props.color}`}>
 			<FrequencySlider
 				index={props.index}
 				changeFrequency={props.changeFrequency}
@@ -117,7 +131,6 @@ function OrbitController(props: {
 					props.changeDirection((e.target as HTMLInputElement).value)
 				}
 			>
-				<legend>Choose direction</legend>
 				<RadioButton direction="clockwise" index={props.index} />
 				<RadioButton direction="counter-clockwise" index={props.index} />
 			</fieldset>
@@ -162,7 +175,7 @@ function RadioButton(props: {
 			></input>
 			<label htmlFor={`direction-${props.direction}-${props.index}`}>
 				<img
-					className="w-12"
+					className="w-12 bg-white"
 					src={
 						props.direction == "clockwise"
 							? clockwiseIcon
