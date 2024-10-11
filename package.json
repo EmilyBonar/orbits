@@ -1,48 +1,48 @@
 {
-	"name": "orbits",
-	"version": "0.1.0",
-	"private": true,
-	"dependencies": {
-		"@craco/craco": "^7.1.0",
-		"@tailwindcss/postcss7-compat": "^2.2.17",
-		"@testing-library/jest-dom": "^6.5.0",
-		"@testing-library/react": "^16.0.1",
-		"@testing-library/user-event": "^14.5.2",
-		"@types/jest": "^29.5.13",
-		"@types/node": "^22.7.5",
-		"@types/react": "^18.3.11",
-		"@types/react-dom": "^18.3.1",
-		"autoprefixer": "^10.4.20",
-		"postcss": "^8.4.47",
-		"react": "^18.3.1",
-		"react-dom": "^18.3.1",
-		"react-scripts": "5.0.1",
-		"tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
-		"typescript": "^5.6.3",
-		"web-vitals": "^4.2.3"
-	},
-	"scripts": {
-		"start": "craco start",
-		"build": "craco build",
-		"test": "craco test",
-		"eject": "react-scripts eject"
-	},
-	"eslintConfig": {
-		"extends": [
-			"react-app",
-			"react-app/jest"
-		]
-	},
-	"browserslist": {
-		"production": [
-			">0.2%",
-			"not dead",
-			"not op_mini all"
-		],
-		"development": [
-			"last 1 chrome version",
-			"last 1 firefox version",
-			"last 1 safari version"
-		]
-	}
+  "name": "orbits",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@craco/craco": "^7.1.0",
+    "@tailwindcss/postcss7-compat": "^2.2.17",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.5",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.47",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
+    "typescript": "^4.0",
+    "web-vitals": "^4.2.3"
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }
