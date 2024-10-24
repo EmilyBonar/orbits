@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import clockwiseIcon from "./clockwise.svg";
-import counterclockwiseIcon from "./counter-clockwise.svg";
+import clockwiseIcon from "./assets/clockwise.svg";
+import counterclockwiseIcon from "./assets/counter-clockwise.svg";
 
 interface OrbitDetails {
   period: number;
