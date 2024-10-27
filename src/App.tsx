@@ -3,14 +3,15 @@ import "./App.css";
 import clockwiseIcon from "./assets/clockwise.svg";
 import counterclockwiseIcon from "./assets/counter-clockwise.svg";
 
+type Direction = "clockwise" | "counter-clockwise";
 interface OrbitDetails {
   period: number;
-  direction: "clockwise" | "counter-clockwise";
+  direction: Direction;
 }
 
 class DefaultOrbit implements OrbitDetails {
   period = 2;
-  direction: "clockwise" | "counter-clockwise" = "clockwise";
+  direction: Direction = "clockwise";
 }
 
 function App() {
@@ -58,12 +59,12 @@ function App() {
           <OrbitController
             key={index}
             changeFrequency={(frequency: number) => {
-              let localOrbits = orbits;
+              const localOrbits = orbits;
               localOrbits[index].period = 1 / frequency;
               setOrbits([...localOrbits]);
             }}
-            changeDirection={(direction: "clockwise" | "counter-clockwise") => {
-              let localOrbits = orbits;
+            changeDirection={(direction: Direction) => {
+              const localOrbits = orbits;
               localOrbits[index].direction = direction;
               setOrbits([...localOrbits]);
             }}
@@ -91,7 +92,7 @@ function Path() {
 
 function Orbiter(props: {
   size: number;
-  direction: "clockwise" | "counter-clockwise";
+  direction: Direction;
   period: number;
   index: number;
   color: string;
@@ -114,8 +115,8 @@ function Orbiter(props: {
 }
 
 function OrbitController(props: {
-  changeFrequency: Function;
-  changeDirection: Function;
+  changeFrequency: (newFreq: number) => void;
+  changeDirection: (newDirection: Direction) => void;
   index: number;
   color: string;
 }) {
@@ -128,7 +129,9 @@ function OrbitController(props: {
       <fieldset
         className="flex flex-row gap-4"
         onChange={(e) =>
-          props.changeDirection((e.target as HTMLInputElement).value)
+          props.changeDirection(
+            (e.target as HTMLInputElement).value as Direction
+          )
         }
       >
         <RadioButton direction="clockwise" index={props.index} />
@@ -138,7 +141,10 @@ function OrbitController(props: {
   );
 }
 
-function FrequencySlider(props: { index: number; changeFrequency: Function }) {
+function FrequencySlider(props: {
+  index: number;
+  changeFrequency: (newFreq: number) => void;
+}) {
   const [freq, setFreq] = useState(0.5);
   useEffect(() => props.changeFrequency(freq), [freq, props]);
   return (
@@ -160,10 +166,7 @@ function FrequencySlider(props: { index: number; changeFrequency: Function }) {
   );
 }
 
-function RadioButton(props: {
-  direction: "clockwise" | "counter-clockwise";
-  index: number;
-}) {
+function RadioButton(props: { direction: Direction; index: number }) {
   return (
     <div>
       <input
@@ -188,7 +191,7 @@ function RadioButton(props: {
   );
 }
 
-function AddButton(props: { addOrbiter: Function }) {
+function AddButton(props: { addOrbiter: () => void }) {
   return (
     <button
       onClick={() => props.addOrbiter()}
